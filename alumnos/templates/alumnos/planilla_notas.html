@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Planilla de Notas - Técnica 283</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .header-boca { background-color: #003087; color: #FFD100; padding: 15px; border-bottom: 5px solid #FFD100; }
+        .table-boca thead { background-color: #003087; color: #FFD100; }
+        .trampa-row { background-color: #f8d7da !important; font-weight: bold; color: #721c24; }
+        .btn-detalle { background-color: #003087; color: #FFD100; border: none; }
+        .btn-detalle:hover { background-color: #00205b; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="header-boca text-center shadow">
+    <h1>📊 Registro de Calificaciones - Técnica 283</h1>
+    <p class="mb-0">Panel de Control del Profesor</p>
+</div>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <strong>Filtrar Curso:</strong>
+            <a href="?" class="btn btn-sm btn-outline-secondary ml-2">Todos</a>
+            {% for cod, nombre in cursos %}
+                <a href="?curso={{ cod }}" class="btn btn-sm btn-outline-primary">{{ nombre }}</a>
+            {% endfor %}
+        </div>
+        <a href="{% url 'panel' %}" class="btn btn-secondary">Volver al Panel</a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Alumno</th>
+                        <th>Curso</th>
+                        <th>Examen</th>
+                        <th>Nota</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in resultados %}
+                    <tr class="{% if r.intento_fraude %}trampa-row{% endif %}">
+                        <td>{{ r.alumno.apellido_completo }}, {{ r.alumno.nombre_completo }}</td>
+                        <td>{{ r.alumno.get_curso_display }}</td>
+                        <td>{{ r.evaluacion.titulo }}</td>
+                        <td><span class="h5"><strong>{{ r.nota }}</strong></span></td>
+                        <td>
+                            {% if r.intento_fraude %}
+                                <span class="badge bg-danger">⚠️ TRAMPA</span>
+                            {% else %}
+                                <span class="badge bg-success">OK</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ r.fecha|date:"d/m/Y H:i" }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'ver_detalle_examen' r.id %}" class="btn btn-sm btn-detalle shadow-sm">
+                                🔍 Ver Respuestas
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">No hay exámenes rendidos todavía.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

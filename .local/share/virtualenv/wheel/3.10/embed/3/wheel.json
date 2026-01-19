@@ -1,0 +1,13 @@
+{
+  "completed": "2026-01-17T20:58:32.274049Z",
+  "periodic": true,
+  "started": "2026-01-17T20:58:26.676815Z",
+  "versions": [
+    {
+      "filename": "wheel-0.45.1-py3-none-any.whl",
+      "found_date": "2026-01-17T20:58:27.415570Z",
+      "release_date": "2024-11-23T00:18:21.000000Z",
+      "source": "periodic"
+    }
+  ]
+}

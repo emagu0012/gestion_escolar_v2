@@ -1,0 +1,10 @@
+<div style="text-align:center; margin-top:50px; font-family: sans-serif;">
+    {% if fraude %}
+        <h1 style="color:red;">EXAMEN ANULADO</h1>
+        <p>Se detectó que saliste de la pestaña. Tu nota es 1.</p>
+    {% else %}
+        <h1>Resultado de {{ evaluacion.titulo }}</h1>
+        <p style="font-size: 24px;">Tu nota es: <strong>{{ nota }}</strong></p>
+    {% endif %}
+    <a href="{% url 'panel' %}">Volver al Panel</a>
+</div>

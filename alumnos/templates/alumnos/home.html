@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Escuela Técnica</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #003087; color: white; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .hero-card { background: rgba(255, 255, 255, 0.1); border: 2px solid #FFD100; padding: 40px; border-radius: 15px; backdrop-filter: blur(10px); }
+        .btn-boca { background-color: #FFD100; color: #003087; font-weight: bold; border: none; }
+        .btn-boca:hover { background-color: #e6bc00; color: #003087; }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <div class="hero-card shadow-lg">
+            <h1 class="display-4 fw-bold">Escuela Técnica 283</h1>
+            <p class="lead">Bienvenido al sistema de gestión de alumnos.</p>
+            <hr class="my-4" style="background-color: #FFD100; opacity: 1;">
+            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                <a href="/login" class="btn btn-boca btn-lg px-4">Iniciar Sesión</a>
+                <a href="/registro" class="btn btn-outline-light btn-lg px-4">Registrarme</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
