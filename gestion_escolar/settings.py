@@ -2,13 +2,21 @@ import os
 from pathlib import Path
 
 # --- CONFIGURACIÓN DE RUTAS ---
-# BASE_DIR es /home/tecnica283/gestion_escolar
-BASE_DIR = Path(__file__).resolve().parent
+# BASE_DIR apunta a la raíz del proyecto (donde está manage.py)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- SEGURIDAD ---
-SECRET_KEY = "django-insecure-_bw2ak=_qdss(m72%h0lcg#i!ma4$4i+1p90j#p^%)j46(o39q"
-DEBUG = True
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-_bw2ak=_qdss(m72%h0lcg#i!ma4$4i+1p90j#p^%)j46(o39q")
+
+# En Render usamos la variable de entorno, en local DEBUG es True
+DEBUG = 'RENDER' not in os.environ 
+
 ALLOWED_HOSTS = ['tecnica283.pythonanywhere.com', 'localhost', '127.0.0.1']
+
+# Agregamos el dominio de Render dinámicamente
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # --- APLICACIONES ---
 INSTALLED_APPS = [
@@ -18,11 +26,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "whitenoise.runserver_nostatic", # Para manejar estáticos en Render
     "alumnos",  
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware", # Debe ir después de SecurityMiddleware
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -32,8 +42,8 @@ MIDDLEWARE = [
 ]
 
 # --- CAMBIO CLAVE AQUÍ ---
-# Como urls.py está en la misma carpeta que settings.py, no lleva el "gestion_escolar."
-ROOT_URLCONF = "urls" 
+# Siempre debe apuntar a carpeta_proyecto.urls
+ROOT_URLCONF = "gestion_escolar.urls" 
 
 TEMPLATES = [
     {
@@ -53,7 +63,7 @@ TEMPLATES = [
 ]
 
 # --- CAMBIO CLAVE AQUÍ ---
-WSGI_APPLICATION = "wsgi.application"
+WSGI_APPLICATION = "gestion_escolar.wsgi.application"
 
 # --- BASE DE DATOS ---
 DATABASES = {
@@ -80,6 +90,9 @@ USE_TZ = True
 # --- ARCHIVOS ESTÁTICOS Y MEDIA ---
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Configuración de WhiteNoise para comprimir estáticos
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
