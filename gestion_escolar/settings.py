@@ -89,6 +89,7 @@ USE_TZ = True
 
 # --- ARCHIVOS ESTÁTICOS Y MEDIA ---
 STATIC_URL = "/static/"
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configuración de WhiteNoise para comprimir estáticos
@@ -116,3 +117,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ema1273@gmail.com'
 EMAIL_HOST_PASSWORD = 'skbkeptwswvavcxj'
 DEFAULT_FROM_EMAIL = 'ema1273@gmail.com'
+CSRF_TRUSTED_ORIGINS = ['https://gestionescolarv2-production.up.railway.app']
