@@ -20,3 +20,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+import os
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+if not User.objects.filter(username='admin_escuela').exists():
+    User.objects.create_superuser('admin_escuela', 'admin@correo.com', 'Boca2026!')
+    print("Usuario administrador creado con éxito")
+    
