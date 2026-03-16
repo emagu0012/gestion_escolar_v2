@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-_bw2ak=_qdss(m72%h0lc
 # En Render usamos la variable de entorno, en local DEBUG es True
 DEBUG = 'RENDER' not in os.environ 
 
-ALLOWED_HOSTS = ['tecnica283.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Agregamos el dominio de Render dinámicamente
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
